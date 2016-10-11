@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.eyck.wificlient.MainActivity" >
+
+    <item
+        android:id="@+id/con_item"
+        android:title="@string/con"/>
+
+    <item
+        android:id="@+id/exit_item"
+        android:title="@string/exit"/>
+</menu>
