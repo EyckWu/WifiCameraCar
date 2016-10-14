@@ -87,7 +87,7 @@ public class ThreadListener extends Thread {
 			
 			//Log.d("TagTest", "mess33");
 			dis.close();
-			//br.close();
+			ps.close();
 			socket.close();
 		}catch(IOException ie){
 			ie.printStackTrace();
@@ -141,6 +141,11 @@ public class ThreadListener extends Thread {
 			MainActivity.setState();
 			ps.println('s');
 			Log.d("TagTest", "s");
+		}
+		if(MainActivity.getSendFlagState()==true){
+			MainActivity.setState();
+			ps.println('f');
+			Log.d("TagTest", "f");
 		}
 	}
 	private void vControl(final PrintStream ps){

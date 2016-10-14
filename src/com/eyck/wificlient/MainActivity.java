@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,18 +46,22 @@ public class MainActivity extends Activity implements OnClickListener{
 	ImageButton up;
 	ImageButton down;
 	ImageButton stop;
+	ImageButton sendFlag;
 	private static boolean leftChange=false;
 	private static boolean rightChange=false;
 	private static boolean upChange=false;
 	private static boolean downChange=false;
 	private static boolean stopChange=false;
+	private static boolean sendFlagChange=false;
 	public static int count;
+	public static int color=0;
     ThreadListener myThread=null;
   //获取传感器管理对象
   	private SensorManager sensorManager;
   	private TextView showX;
   	private TextView showY;
   	private TextView showZ;
+  	private TextView showState;
   	private static int vState=-1;
   	private static int vStates=-1;
 	
@@ -72,6 +77,8 @@ public class MainActivity extends Activity implements OnClickListener{
         up=(ImageButton) findViewById(R.id.ic_up);
         down=(ImageButton) findViewById(R.id.ic_down);
         stop=(ImageButton) findViewById(R.id.ic_stop);
+        sendFlag=(ImageButton) findViewById(R.id.ic_flag);
+        showState=(TextView) findViewById(R.id.show_state);
         File sdCardDir=Environment.getExternalStorageDirectory();
         try {
 			absPicPath=sdCardDir.getCanonicalPath()+"/";
@@ -127,6 +134,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		up.setOnClickListener(this);
 		down.setOnClickListener(this);
 		stop.setOnClickListener(this);
+		sendFlag.setOnClickListener(this);
 		
 		new Timer().schedule(new TimerTask(){
 
@@ -228,9 +236,20 @@ public class MainActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.ic_down:
 			downChange=true;
+			break;
 			//new ThreadBtn(ip,port).start();
 		case R.id.ic_stop:
 			stopChange=true;
+			break;
+		case R.id.ic_flag:
+			sendFlagChange=true;
+			if((color++)%2==1){
+				showState.setText("");
+			}else{
+				showState.setText("自动");
+			}
+			Log.d("TagTest", "zidong");
+			break;
 		default:
 			break;
 		}
@@ -250,12 +269,16 @@ public class MainActivity extends Activity implements OnClickListener{
     public static boolean getStopState(){
     	return stopChange;
     }
+    public static boolean getSendFlagState(){
+    	return sendFlagChange;
+    }
     public static void setState(){
     	leftChange=false;
     	rightChange=false;
     	upChange=false;
     	downChange=false;
     	stopChange=false;
+    	sendFlagChange=false;
     }
     public static int getVState(){
     	return vState;
